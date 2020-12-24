@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/static/js/main.567d98d6.chunk.js",
-    "main.js.map": "/static/js/main.567d98d6.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.09e50cf4.js",
-    "runtime-main.js.map": "/static/js/runtime-main.09e50cf4.js.map",
-    "static/js/2.22270c88.chunk.js": "/static/js/2.22270c88.chunk.js",
-    "static/js/2.22270c88.chunk.js.map": "/static/js/2.22270c88.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.6dea0f05.chunk.css.map": "/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.22270c88.chunk.js.LICENSE.txt": "/static/js/2.22270c88.chunk.js.LICENSE.txt"
+    "main.css": "/inovelli-led-strip-toolbox/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/inovelli-led-strip-toolbox/static/js/main.ed47a10d.chunk.js",
+    "main.js.map": "/inovelli-led-strip-toolbox/static/js/main.ed47a10d.chunk.js.map",
+    "runtime-main.js": "/inovelli-led-strip-toolbox/static/js/runtime-main.d8b9ec52.js",
+    "runtime-main.js.map": "/inovelli-led-strip-toolbox/static/js/runtime-main.d8b9ec52.js.map",
+    "static/js/2.7acb30b7.chunk.js": "/inovelli-led-strip-toolbox/static/js/2.7acb30b7.chunk.js",
+    "static/js/2.7acb30b7.chunk.js.map": "/inovelli-led-strip-toolbox/static/js/2.7acb30b7.chunk.js.map",
+    "index.html": "/inovelli-led-strip-toolbox/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/inovelli-led-strip-toolbox/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.7acb30b7.chunk.js.LICENSE.txt": "/inovelli-led-strip-toolbox/static/js/2.7acb30b7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.09e50cf4.js",
-    "static/js/2.22270c88.chunk.js",
+    "static/js/runtime-main.d8b9ec52.js",
+    "static/js/2.7acb30b7.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.567d98d6.chunk.js"
+    "static/js/main.ed47a10d.chunk.js"
   ]
 }
