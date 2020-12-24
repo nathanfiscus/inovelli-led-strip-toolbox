@@ -1,7 +1,9 @@
 {
-  "name": "inovelli-leds",
+  "name": "inovelli-led-strip-toolbox",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://nathanfiscus.github.io/inovelli-led-strip-toolbox",
+  "repository": "https://github.com/nathanfiscus/inovelli-led-strip-toolbox",
+  "private": false,
   "dependencies": {
     "@jaames/iro": "^5.2.3",
     "@material-ui/core": "^4.11.0",
