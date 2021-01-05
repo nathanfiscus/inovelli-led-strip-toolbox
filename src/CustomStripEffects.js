@@ -581,12 +581,12 @@ class CustomStripEffects extends React.Component {
                 </ListItemIcon>
                 <ListItemText primary="Show Parameter Values" />
               </ListItem>
-              <ListItem button onClick={this.sendProgramToHomeAssistant}>
+              {this.props.isHomeAssistantConfigured && <ListItem button onClick={this.sendProgramToHomeAssistant}>
                 <ListItemIcon>
                   <HomeAssistantIcon />
                 </ListItemIcon>
                 <ListItemText primary="Send to Home Assistant Device" />
-              </ListItem>
+              </ListItem>} 
             </React.Fragment>
           )}
         </List>

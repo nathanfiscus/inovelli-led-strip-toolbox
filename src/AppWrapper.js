@@ -15,7 +15,7 @@ class AppWrapper extends React.Component {
           calculationMethod,
           setSceneMethod,
           sceneMethod,
-        }) => <App />}
+        }) => <App setTheme={setTheme} theme={themeType}/>}
       </ThemeProvider>
     );
   }

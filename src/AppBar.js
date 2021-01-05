@@ -24,7 +24,7 @@ export default class ApplicationBar extends React.Component {
               </IconButton>
             </Tooltip>
             <Tooltip title="About">
-              <IconButton color="inherit" onClick={this.openAboutDialog}>
+              <IconButton color="inherit" onClick={this.props.onOpenAbout}>
                 <InfoOutlined />
               </IconButton>
             </Tooltip>

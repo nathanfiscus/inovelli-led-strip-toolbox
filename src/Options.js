@@ -49,7 +49,7 @@ class OptionsDialog extends React.PureComponent {
       >
         <DialogTitle>Options</DialogTitle>
         <DialogContent>
-          {/* <FormControl fullWidth={true} margin="normal">
+          <FormControl fullWidth={true} margin="normal">
             <InputLabel>Theme</InputLabel>
             <Select value={this.props.theme} onChange={this.handleThemeChange}>
               <MenuItem value="light">Light</MenuItem>
@@ -68,7 +68,7 @@ class OptionsDialog extends React.PureComponent {
             </Select>
           </FormControl>
           <br />
-          <br /> */}
+          <br />
           <Typography>Home Assistant Integration</Typography>
           <Typography variant="caption" color="textSecondary">
             Integrate this application with your Home Assistant instance by

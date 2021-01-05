@@ -11,6 +11,7 @@ import {
   callService,
   createLongLivedTokenAuth,
 } from "home-assistant-js-websocket";
+import AboutDialog from "./AboutDialog";
 
 const styles = (theme) => ({
   root: {
@@ -62,6 +63,7 @@ class App extends React.Component {
       HA_NODE: window.localStorage.getItem("HA_NODE"),
       HA_SERVICE: window.localStorage.getItem("HA_SERVICE"),
       valueFormat: window.localStorage.getItem("valueFormat") || 10,
+      aboutDialogOpen: false
     };
 
     if (this.state.HA_URL && this.state.HA_TOKEN) {
@@ -156,6 +158,11 @@ class App extends React.Component {
     window.localStorage.setItem("valueFormat", value);
   };
 
+  handleChangeThemeValue = (value) => {
+    this.setState({theme:value});
+    window.localStorage.setItem("theme",value);
+  }
+
   sendProgamThroughHomeAssistant = (program) => {
     const SERVICE_PARTS = this.state.HA_SERVICE.split(".");
     console.log(SERVICE_PARTS);
@@ -189,23 +196,33 @@ class App extends React.Component {
       });
   };
 
+  handleCloseAboutDialog = () => {
+    this.setState({aboutDialogOpen:false})
+  }
+
+  handleOpenAboutDialog = () => {
+    this.setState({aboutDialogOpen: true});
+  }
+
   render() {
     return (
       <React.Fragment>
         <CssBaseline />
-        <AppBar onOpenOptions={this.handleOpenOptions} />
+        <AppBar onOpenOptions={this.handleOpenOptions} onOpenAbout={this.handleOpenAboutDialog} />
         <Options
           open={this.state.optionsOpen}
           homeAssistantURL={this.state.HA_URL}
           homeAssistantToken={this.state.HA_TOKEN}
           homeAssistantNode={this.state.HA_NODE}
           homeAssistantService={this.state.HA_SERVICE}
+          theme={this.props.theme}
           format={this.state.valueFormat}
           setHomeAssistantURL={this.handleHomeAssistantURLChange}
           setHomeAssistantToken={this.handleHomeAssistantTokenChange}
           setHomeAssistantNode={this.handleHomeAssistantNodeChange}
           setHomeAssistantService={this.handleHomeAssistantServiceChange}
           setFormat={this.handleChangeValueFormat}
+          setTheme={this.props.setTheme}
           onClose={this.handleOptionsClosed}
         />
         <div className={this.props.classes.root}>
@@ -239,10 +256,12 @@ class App extends React.Component {
             {/*<div>*/}
             <CustomStripEffects
               onPlay={this.handleOnPlay}
-              homeAssistantConfigured={this.state.homeAssistant !== undefined}
+              isHomeAssistantConfigured={this.state.homeAssistant !== undefined}
               onSendToHomeAssistant={this.sendProgamThroughHomeAssistant}
               valueFormat={this.state.valueFormat}
+              format={this.state.valueFormat}
             />
+            <AboutDialog open={this.state.aboutDialogOpen} onClose={this.handleCloseAboutDialog}/>
             {/*</div>*/}
           </div>
         </div>
