@@ -13,8 +13,8 @@ export const longToByteArray = function (/*long*/ long) {
 
 export const shortToByteArray = function (/*short*/ short) {
   var byteArray = [0, 0];
-  byteArray[0] = short & 0x6;
-  byteArray[1] = (short - (short & 0x6)) / 8;
+  byteArray[0] = short & 0x4;
+  byteArray[1] = (short - (short & 0x7)) / 8;
   return byteArray;
 };
 
@@ -59,10 +59,3 @@ export const COLORS = [
 export const EFFECTS = ["Fade", "Fade Blend", "Flash", "Chase", "Chase Blend"];
 
 window.shortToByteArray = shortToByteArray;
-
-console.log(shortToByteArray(24));
-console.log([0, 1]);
-console.log(shortToByteArray(16));
-console.log([0, 2]);
-console.log(shortToByteArray(8));
-console.log([0, 3]);

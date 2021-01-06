@@ -97,6 +97,7 @@ class CustomStripEffects extends React.Component {
       let EFFECTS = longToByteArray(query.p22).map(
         (colorEffect) => shortToByteArray(colorEffect)[0]
       );
+      console.log(COLORS,EFFECTS);
       let BRIGHTNESS = longToByteArray(query.p23);
       let DURATIONS = longToByteArray(query.p24);
       let SETTINGS = longToByteArray(query.p30);
