@@ -49,7 +49,10 @@ import HomeAssistantIcon from "./HomeAssistantIcon";
 import SaveIcon from "./SaveIcon";
 import SaveAsIcon from "./SaveAsIcon";
 import NewIcon from "@material-ui/icons/AddBox";
+import ShareIcon from '@material-ui/icons/Share';
 import ImportProgram from "./ImportProgram";
+import qs from 'qs';
+import ShareDialog from './ShareDialog';
 
 const styles = (theme) => ({
   root: {
@@ -79,7 +82,55 @@ class CustomStripEffects extends React.Component {
       savedAnimation: { animation: {} },
       indexOfSavedAnimation: null,
       importProgramDialogOpen: false,
+      shareDialogOpen: false,
     };
+  }
+
+  componentDidMount(){
+    //Import Program from Share Link
+    if(window.location.search){
+      let query = qs.parse(window.location.search.replace(/\?/,""));
+      console.log(query);
+      let COLORS = longToByteArray(query.p22).map(
+        (colorEffect) => shortToByteArray(colorEffect)[1]
+      );
+      let EFFECTS = longToByteArray(query.p22).map(
+        (colorEffect) => shortToByteArray(colorEffect)[0]
+      );
+      let BRIGHTNESS = longToByteArray(query.p23);
+      let DURATIONS = longToByteArray(query.p24);
+      let SETTINGS = longToByteArray(query.p30);
+      //console.log(COLORS, EFFECTS, BRIGHTNESS, DURATIONS);
+      //Drop Empty Effects
+      for (let i = COLORS.length - 1; i >= 0; i--) {
+        if (DURATIONS[i] !== 0) {
+          break;
+        }
+        COLORS.pop();
+        EFFECTS.pop();
+        BRIGHTNESS.pop();
+        DURATIONS.pop();
+      }
+      COLORS.reverse();
+      EFFECTS.reverse();
+      BRIGHTNESS.reverse();
+      DURATIONS.reverse();
+      //console.log(COLORS, EFFECTS, BRIGHTNESS, DURATIONS);
+      const IMPORTED_EFFECTS = COLORS.map((color, index) => ({
+        color: color,
+        effect: EFFECTS[index],
+        brightness: BRIGHTNESS[index],
+        duration: DURATIONS[index],
+      }));
+  
+      this.setState({
+        effects: IMPORTED_EFFECTS,
+        iterations: SETTINGS[0],
+        finishBehavior: SETTINGS[1],
+        timeUnit: SETTINGS[2],
+      });
+    }
+    
   }
 
   openContextMenu = (selectedEffect) => (e) => {
@@ -380,6 +431,14 @@ class CustomStripEffects extends React.Component {
     });
   };
 
+  handleOpenShareDialog = () => {
+    this.setState({shareDialogOpen: true});
+  }
+
+  handleCloseShareDialog = () => {
+    this.setState({shareDialogOpen: false});
+  }
+
   render() {
     const IS_SAVED_PROGRAM_CHANGED =
       JSON.stringify(this.state.savedAnimation.animation.effects) !==
@@ -430,6 +489,11 @@ class CustomStripEffects extends React.Component {
             <Tooltip title="Import a Program">
               <IconButton onClick={this.handleOpenImportProgramDialog}>
                 <Import />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Share Current Program">
+              <IconButton onClick={this.handleOpenShareDialog}>
+                <ShareIcon />
               </IconButton>
             </Tooltip>
           </ListItem>
@@ -618,6 +682,14 @@ class CustomStripEffects extends React.Component {
           open={this.state.importProgramDialogOpen}
           onClose={this.handleCloseImportProgramDialog}
           onImport={this.handleImportProgram}
+        />
+        <ShareDialog 
+          open={this.state.shareDialogOpen}
+          onClose={this.handleCloseShareDialog}
+          parameter22={this.parameter22}
+          parameter23={this.parameter23}
+          parameter24={this.parameter24}
+          parameter30={this.parameter30}
         />
       </div>
     );
