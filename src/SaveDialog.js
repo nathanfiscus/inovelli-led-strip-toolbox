@@ -16,6 +16,12 @@ class SaveDialog extends React.Component {
     };
   }
 
+  componentDidUpdate(lastProps) {
+    if(this.props.open && this.props.open !== lastProps.open){
+      this.setState({name:""});
+    }
+  }
+
   onChange = (e) => {
     this.setState({ name: e.target.value });
   };

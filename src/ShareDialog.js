@@ -53,7 +53,6 @@ class ImportProgram extends React.Component {
         <DialogContent>
           <TextField
             value={`https://nathanfiscus.github.io/inovelli-led-strip-toolbox/?p22=${this.props.parameter22}&p23=${this.props.parameter23}&p24=${this.props.parameter24}&p30=${this.props.parameter30}`}
-            autoFocus={true}
             label="Program Share Link"
             helperText="Copy URL to share your custom program with others."
             fullWidth={true}
