@@ -13,7 +13,7 @@ export const longToByteArray = function (/*long*/ long) {
 
 export const shortToByteArray = function (/*short*/ short) {
   var byteArray = [0, 0];
-  byteArray[0] = short & 0x4;
+  byteArray[0] = short & 0x7;
   byteArray[1] = (short - (short & 0x7)) / 8;
   return byteArray;
 };
@@ -56,6 +56,6 @@ export const COLORS = [
   "Magenta",
   "Random Color",
 ];
-export const EFFECTS = ["Fade", "Fade Blend", "Flash", "Chase", "Chase Blend"];
+export const EFFECTS = ["Fade", "Fade Blend", "Flash", "Chase"]; // "Chase Blend"]; //Removed until new firmware resolves issue.
 
 window.shortToByteArray = shortToByteArray;
