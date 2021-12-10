@@ -63,7 +63,7 @@ class App extends React.Component {
       HA_NODE: window.localStorage.getItem("HA_NODE"),
       HA_SERVICE: window.localStorage.getItem("HA_SERVICE"),
       valueFormat: window.localStorage.getItem("valueFormat") || 10,
-      aboutDialogOpen: false
+      aboutDialogOpen: false,
     };
 
     if (this.state.HA_URL && this.state.HA_TOKEN) {
@@ -159,9 +159,9 @@ class App extends React.Component {
   };
 
   handleChangeThemeValue = (value) => {
-    this.setState({theme:value});
-    window.localStorage.setItem("theme",value);
-  }
+    this.setState({ theme: value });
+    window.localStorage.setItem("theme", value);
+  };
 
   sendProgamThroughHomeAssistant = (program) => {
     const SERVICE_PARTS = this.state.HA_SERVICE.split(".");
@@ -169,9 +169,26 @@ class App extends React.Component {
     const HA_SERVICE_DOMAIN = SERVICE_PARTS[0];
     const HA_SERVICE = SERVICE_PARTS[1];
     console.log(SERVICE_PARTS[0], SERVICE_PARTS[1]);
+
+    let deinitPayload = {
+      node_id: parseInt(this.state.HA_NODE),
+      parameter: 30,
+      value: 0,
+    };
+
+    if (HA_SERVICE_DOMAIN === "zwavejs") {
+      delete deinitPayload.node_id;
+      deinitPayload.entity_id = this.state.HA_NODE;
+    }
+
     Promise.all([
       callService(this.state.homeAssistant, HA_SERVICE_DOMAIN, HA_SERVICE, {
-        node_id: parseInt(this.state.HA_NODE),
+        node_id:
+          HA_SERVICE_DOMAIN === "zwavejs"
+            ? undefined
+            : parseInt(this.state.HA_NODE),
+        entity_id:
+          HA_SERVICE_DOMAIN === "zwavejs" ? this.state.HA_NODE : undefined,
         parameter: 30,
         value: 0,
       }),
@@ -181,7 +198,12 @@ class App extends React.Component {
           HA_SERVICE_DOMAIN,
           HA_SERVICE,
           {
-            node_id: parseInt(this.state.HA_NODE),
+            entity_id:
+              HA_SERVICE_DOMAIN === "zwavejs" ? this.state.HA_NODE : undefined,
+            node_id:
+              HA_SERVICE_DOMAIN === "zwavejs"
+                ? undefined
+                : parseInt(this.state.HA_NODE),
             parameter: parseInt(parameter.number),
             value: parseInt(parameter.value),
           }
@@ -197,18 +219,21 @@ class App extends React.Component {
   };
 
   handleCloseAboutDialog = () => {
-    this.setState({aboutDialogOpen:false})
-  }
+    this.setState({ aboutDialogOpen: false });
+  };
 
   handleOpenAboutDialog = () => {
-    this.setState({aboutDialogOpen: true});
-  }
+    this.setState({ aboutDialogOpen: true });
+  };
 
   render() {
     return (
       <React.Fragment>
         <CssBaseline />
-        <AppBar onOpenOptions={this.handleOpenOptions} onOpenAbout={this.handleOpenAboutDialog} />
+        <AppBar
+          onOpenOptions={this.handleOpenOptions}
+          onOpenAbout={this.handleOpenAboutDialog}
+        />
         <Options
           open={this.state.optionsOpen}
           homeAssistantURL={this.state.HA_URL}
@@ -261,7 +286,10 @@ class App extends React.Component {
               valueFormat={this.state.valueFormat}
               format={this.state.valueFormat}
             />
-            <AboutDialog open={this.state.aboutDialogOpen} onClose={this.handleCloseAboutDialog}/>
+            <AboutDialog
+              open={this.state.aboutDialogOpen}
+              onClose={this.handleCloseAboutDialog}
+            />
             {/*</div>*/}
           </div>
         </div>

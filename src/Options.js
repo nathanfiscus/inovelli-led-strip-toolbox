@@ -97,6 +97,9 @@ class OptionsDialog extends React.PureComponent {
               value={this.props.homeAssistantService}
               onChange={this.handleHomeAssistantServiceChange}
             >
+              <MenuItem value="zwave_js.bulk_set_partial_config_parameters">
+                ZwaveJS (zwave_js.bulk_set_partial_config_parameters)
+              </MenuItem>
               <MenuItem value="ozw.set_config_parameter">
                 OpenZWave (ozw.set_config_parameter)
               </MenuItem>
@@ -108,7 +111,12 @@ class OptionsDialog extends React.PureComponent {
           <TextField
             fullWidth
             margin="normal"
-            label="Z-Wave Node ID (Number)"
+            label={
+              this.props.homeAssistantService !==
+              "zwave_js.bulk_set_partial_config_parameters"
+                ? "Z-Wave Node ID (Number)"
+                : "Entity ID (eg light.desktop_light_strip)"
+            }
             value={this.props.homeAssistantNode}
             onChange={this.handleNodeChange}
           />
