@@ -6,16 +6,9 @@ class AppWrapper extends React.Component {
   render() {
     return (
       <ThemeProvider>
-        {({
-          setTheme,
-          themeType,
-          formatType,
-          setFormat,
-          setCalculationMethod,
-          calculationMethod,
-          setSceneMethod,
-          sceneMethod,
-        }) => <App setTheme={setTheme} theme={themeType}/>}
+        {({ setTheme, themeType }) => (
+          <App setTheme={setTheme} theme={themeType} />
+        )}
       </ThemeProvider>
     );
   }

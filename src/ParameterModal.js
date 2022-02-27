@@ -15,7 +15,7 @@ import {
   Snackbar,
 } from "@material-ui/core";
 import React from "react";
-import copyToClipboard from "./ClipboardAccess";
+import copyToClipboard from "./utils/ClipboardAccess";
 import YAML from "json-to-pretty-yaml";
 
 function SlideTransition(props) {

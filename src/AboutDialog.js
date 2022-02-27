@@ -27,12 +27,13 @@ class AboutDialog extends React.Component {
         <DialogTitle>About</DialogTitle>
         <DialogContent>
           <Typography variant="h4" gutterBottom>
-            Version 1.0 (Jan 5, 2021)
+            Version 1.2 (Feb 23, 2022)
           </Typography>
           <Typography variant="h6">About the Tool</Typography>
           <Typography variant="caption" gutterBottom={true}>
             This is a simple application to assist in calculating the
-            configuration values to send to your Z-Wave Inovelli LED strip controller.
+            configuration values to send to your Z-Wave Inovelli LED strip
+            controller.
             <br />
             <br />
           </Typography>

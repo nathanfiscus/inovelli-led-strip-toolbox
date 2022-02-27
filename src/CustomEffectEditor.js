@@ -18,7 +18,7 @@ import Brightness0 from "@material-ui/icons/Brightness2";
 import Brightness7 from "@material-ui/icons/Brightness7";
 import InfiniteIcon from "@material-ui/icons/AllInclusive";
 import TimelapseIcon from "@material-ui/icons/Timelapse";
-import { COLORS, EFFECTS } from "./Utils";
+import { COLORS, EFFECTS } from "./utils/Utils";
 
 const styles = (theme) => ({
   contentRoot: {

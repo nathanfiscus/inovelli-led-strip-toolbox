@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import AppWrapper from "./AppWrapper";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 //import reportWebVitals from './reportWebVitals';
 import swConfig from "./swconfig";
 

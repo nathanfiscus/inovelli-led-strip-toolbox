@@ -11,13 +11,9 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   Select,
-  TextField,
   withStyles,
   Divider,
-  InputAdornment,
   Tooltip,
-  SvgIcon,
-  Button,
   Typography,
   Grid,
   Slider,
@@ -29,7 +25,6 @@ import MoreVert from "@material-ui/icons/MoreVert";
 import CustomEffectEditor from "./CustomEffectEditor";
 import Open from "@material-ui/icons/FolderOpen";
 import Import from "@material-ui/icons/SaveAlt";
-import PlayIcon from "@material-ui/icons/PlayArrow";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
 import {
   byteArrayToLong,
@@ -38,21 +33,20 @@ import {
   UNITS,
   COLORS,
   EFFECTS,
-  FINISHES,
-} from "./Utils";
+} from "./utils/Utils";
 import ParameterModal from "./ParameterModal";
 import InfiniteIcon from "@material-ui/icons/AllInclusive";
 import TimelapseIcon from "@material-ui/icons/Timelapse";
 import SaveDialog from "./SaveDialog";
 import OpenDialog from "./OpenDialog";
-import HomeAssistantIcon from "./HomeAssistantIcon";
-import SaveIcon from "./SaveIcon";
-import SaveAsIcon from "./SaveAsIcon";
+import HomeAssistantIcon from "./Icons/HomeAssistantIcon";
+import SaveIcon from "./Icons/SaveIcon";
+import SaveAsIcon from "./Icons/SaveAsIcon";
 import NewIcon from "@material-ui/icons/AddBox";
-import ShareIcon from '@material-ui/icons/Share';
+import ShareIcon from "@material-ui/icons/Share";
 import ImportProgram from "./ImportProgram";
-import qs from 'qs';
-import ShareDialog from './ShareDialog';
+import qs from "qs";
+import ShareDialog from "./ShareDialog";
 
 const styles = (theme) => ({
   root: {
@@ -86,18 +80,16 @@ class CustomStripEffects extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     //Import Program from Share Link
-    if(window.location.search){
-      let query = qs.parse(window.location.search.replace(/\?/,""));
-      console.log(query);
+    if (window.location.search) {
+      let query = qs.parse(window.location.search.replace(/\?/, ""));
       let COLORS = longToByteArray(query.p22).map(
         (colorEffect) => shortToByteArray(colorEffect)[1]
       );
       let EFFECTS = longToByteArray(query.p22).map(
         (colorEffect) => shortToByteArray(colorEffect)[0]
       );
-      console.log(COLORS,EFFECTS);
       let BRIGHTNESS = longToByteArray(query.p23);
       let DURATIONS = longToByteArray(query.p24);
       let SETTINGS = longToByteArray(query.p30);
@@ -123,7 +115,7 @@ class CustomStripEffects extends React.Component {
         brightness: BRIGHTNESS[index],
         duration: DURATIONS[index],
       }));
-  
+
       this.setState({
         effects: IMPORTED_EFFECTS,
         iterations: SETTINGS[0],
@@ -131,7 +123,6 @@ class CustomStripEffects extends React.Component {
         timeUnit: SETTINGS[2],
       });
     }
-    
   }
 
   openContextMenu = (selectedEffect) => (e) => {
@@ -400,7 +391,6 @@ class CustomStripEffects extends React.Component {
     let BRIGHTNESS = longToByteArray(PARAMETERS[1]);
     let DURATIONS = longToByteArray(PARAMETERS[2]);
     let SETTINGS = longToByteArray(PARAMETERS[3]);
-    //console.log(COLORS, EFFECTS, BRIGHTNESS, DURATIONS);
     //Drop Empty Effects
     for (let i = COLORS.length - 1; i >= 0; i--) {
       if (DURATIONS[i] !== 0) {
@@ -415,7 +405,6 @@ class CustomStripEffects extends React.Component {
     EFFECTS.reverse();
     BRIGHTNESS.reverse();
     DURATIONS.reverse();
-    //console.log(COLORS, EFFECTS, BRIGHTNESS, DURATIONS);
     const IMPORTED_EFFECTS = COLORS.map((color, index) => ({
       color: color,
       effect: EFFECTS[index],
@@ -433,12 +422,12 @@ class CustomStripEffects extends React.Component {
   };
 
   handleOpenShareDialog = () => {
-    this.setState({shareDialogOpen: true});
-  }
+    this.setState({ shareDialogOpen: true });
+  };
 
   handleCloseShareDialog = () => {
-    this.setState({shareDialogOpen: false});
-  }
+    this.setState({ shareDialogOpen: false });
+  };
 
   render() {
     const IS_SAVED_PROGRAM_CHANGED =
@@ -634,24 +623,20 @@ class CustomStripEffects extends React.Component {
                 </FormControl>
               </ListItem>
               <Divider />
-              {/* <ListItem button onClick={this.handlePlayAnimationClick}>
-                <ListItemIcon>
-                  <PlayIcon />
-                </ListItemIcon>
-                <ListItemText primary="Play Animation" />
-              </ListItem> */}
               <ListItem button onClick={this.toggleParameterModal}>
                 <ListItemIcon>
                   <FormatListNumberedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Show Parameter Values" />
               </ListItem>
-              {this.props.isHomeAssistantConfigured && <ListItem button onClick={this.sendProgramToHomeAssistant}>
-                <ListItemIcon>
-                  <HomeAssistantIcon />
-                </ListItemIcon>
-                <ListItemText primary="Send to Home Assistant Device" />
-              </ListItem>} 
+              {this.props.isHomeAssistantConfigured && (
+                <ListItem button onClick={this.sendProgramToHomeAssistant}>
+                  <ListItemIcon>
+                    <HomeAssistantIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Send to Home Assistant Device" />
+                </ListItem>
+              )}
             </React.Fragment>
           )}
         </List>
@@ -684,7 +669,7 @@ class CustomStripEffects extends React.Component {
           onClose={this.handleCloseImportProgramDialog}
           onImport={this.handleImportProgram}
         />
-        <ShareDialog 
+        <ShareDialog
           open={this.state.shareDialogOpen}
           onClose={this.handleCloseShareDialog}
           parameter22={this.parameter22}

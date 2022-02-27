@@ -1,7 +1,5 @@
 import React from "react";
-import { CssBaseline, withStyles, Tabs, Tab } from "@material-ui/core";
-import Strip from "./Strip";
-
+import { CssBaseline, withStyles } from "@material-ui/core";
 import AppBar from "./AppBar";
 import Options from "./Options";
 import CustomStripEffects from "./CustomStripEffects";
@@ -76,6 +74,7 @@ class App extends React.Component {
         const connection = await createConnection({ auth });
         this.setState({ homeAssistant: connection }, () => {
           console.info("Home Assistant Connection Saved to State....");
+          window.ha = connection;
         });
       })();
     }
@@ -250,35 +249,12 @@ class App extends React.Component {
           setTheme={this.props.setTheme}
           onClose={this.handleOptionsClosed}
         />
+        <AboutDialog
+          open={this.state.aboutDialogOpen}
+          onClose={this.handleCloseAboutDialog}
+        />
         <div className={this.props.classes.root}>
-          <div className={this.props.classes.tabWrapper}>
-            {/* <Tabs value={this.state.tab} onChange={this.handleChangeTab}>
-                  <Tab label="Parameter 10" />
-                  <Tab label="Parameter 11" />
-                  <Tab label="Custom Strip Effects" />
-                  <Tab label="Parameter 16" />
-                </Tabs> */}
-            {/* <div>
-                  {this.state.tab === 0 && (
-                    <Parameter10
-                      color={this.state.parameter10.color}
-                      temperature={this.state.parameter10.temperature}
-                      onChange={this.handleParameter10Changes}
-                    />
-                  )}
-                  {this.state.tab === 2 && (
-                    <CustomStripEffects
-                      effects={this.state.customStripEffects}
-                      onChange={this.handleCustomStripEffectChange}
-                    />
-                  )} 
-                </div>*/}
-          </div>
           <div className={this.props.classes.areaWrapper}>
-            {/* <div>
-              <Strip program={this.state.lightShow} />
-            </div> */}
-            {/*<div>*/}
             <CustomStripEffects
               onPlay={this.handleOnPlay}
               isHomeAssistantConfigured={this.state.homeAssistant !== undefined}
@@ -286,11 +262,6 @@ class App extends React.Component {
               valueFormat={this.state.valueFormat}
               format={this.state.valueFormat}
             />
-            <AboutDialog
-              open={this.state.aboutDialogOpen}
-              onClose={this.handleCloseAboutDialog}
-            />
-            {/*</div>*/}
           </div>
         </div>
       </React.Fragment>

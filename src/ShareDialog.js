@@ -11,9 +11,9 @@ import {
   IconButton,
   Snackbar,
   Tooltip,
-  Slide
+  Slide,
 } from "@material-ui/core";
-import copyToClipboard from "./ClipboardAccess";
+import copyToClipboard from "./utils/ClipboardAccess";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -22,17 +22,19 @@ function SlideTransition(props) {
 class ImportProgram extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   handleCopy = () => {
-    copyToClipboard(`https://nathanfiscus.github.io/inovelli-led-strip-toolbox/?p22=${this.props.parameter22}&p23=${this.props.parameter23}&p24=${this.props.parameter24}&p30=${this.props.parameter30}`,this.handleOnCopy);
-  }
+    copyToClipboard(
+      `https://nathanfiscus.github.io/inovelli-led-strip-toolbox/?p22=${this.props.parameter22}&p23=${this.props.parameter23}&p24=${this.props.parameter24}&p30=${this.props.parameter30}`,
+      this.handleOnCopy
+    );
+  };
 
   handleSnackbarClose = () => {
     this.setState({ snackbarOpen: false });
   };
-
 
   handleOnCopy = (success) => {
     this.setState({
@@ -43,23 +45,21 @@ class ImportProgram extends React.Component {
     });
   };
 
-
   render() {
     return (
       <React.Fragment>
-
-      <Dialog open={this.props.open} fullWidth size="md">
-        <DialogTitle>Share Program</DialogTitle>
-        <DialogContent>
-          <TextField
-            value={`https://nathanfiscus.github.io/inovelli-led-strip-toolbox/?p22=${this.props.parameter22}&p23=${this.props.parameter23}&p24=${this.props.parameter24}&p30=${this.props.parameter30}`}
-            label="Program Share Link"
-            helperText="Copy URL to share your custom program with others."
-            fullWidth={true}
-            InputProps={{
-              endAdornment: (
-              <InputAdornment position="end">
-                <Tooltip title="Copy to Clipboard">
+        <Dialog open={this.props.open} fullWidth size="md">
+          <DialogTitle>Share Program</DialogTitle>
+          <DialogContent>
+            <TextField
+              value={`https://nathanfiscus.github.io/inovelli-led-strip-toolbox/?p22=${this.props.parameter22}&p23=${this.props.parameter23}&p24=${this.props.parameter24}&p30=${this.props.parameter30}`}
+              label="Program Share Link"
+              helperText="Copy URL to share your custom program with others."
+              fullWidth={true}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Tooltip title="Copy to Clipboard">
                       <IconButton edge="end" onClick={this.handleCopy}>
                         <SvgIcon>
                           <svg viewBox="0 0 24 24">
@@ -68,15 +68,16 @@ class ImportProgram extends React.Component {
                         </SvgIcon>
                       </IconButton>
                     </Tooltip>
-              </InputAdornment>
-              )}}
+                  </InputAdornment>
+                ),
+              }}
             />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.props.onClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
-      <Snackbar
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.props.onClose}>Close</Button>
+          </DialogActions>
+        </Dialog>
+        <Snackbar
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "right",
@@ -87,7 +88,7 @@ class ImportProgram extends React.Component {
           onClose={this.handleSnackbarClose}
           message={<span id="message-id">{this.state.copyStatusText}</span>}
         />
-            </React.Fragment>
+      </React.Fragment>
     );
   }
 }
